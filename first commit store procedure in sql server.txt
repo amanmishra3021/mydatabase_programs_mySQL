@@ -1,0 +1,55 @@
+create database chetu_company
+use chetu_company
+create database student
+use student
+create table  teacher(id int primary key identity, name varchar(50), email varchar(50),salary int )
+insert into teacher values
+('aman','aman@12',6789),
+('amit','amit45@',5678),
+('manish','manish@13',6200),
+('rahul','rahul12@',789),
+('rashmi','rashmi@12',6780),
+('robin','robin1234@',6678),
+('rohan','rohan14@',67),
+('taniya','taniya56@',658),
+('satyam','satyam76@',6798)
+
+
+select max(salary) from teacher where salary!= max(salary)  
+
+select * from teacher
+
+<---- Crud with store procedure--->
+<--create store procedure-->
+
+
+create proc crud_data
+@action varchar(20),
+@id int=null,
+@name varchar(50)=null,
+@email varchar(50) =null,
+@salary int =null
+as
+<---select query-->
+begin
+if(@action='A')
+begin
+select email from teacher where id=@id
+end
+<--- update query procedure -->
+if @action='B'
+begin
+update teacher
+set name=@name,email=@email,salary=@salary
+where id=@id
+end
+<----- delete query-->
+if @action ='D'
+begin
+delete from teacher where id=@id
+end
+
+end
+<----- execute store procedure --->
+exec crud_data @action='B', @name='pragati',@email='pragati13@',@salary=56767 ,@id=2
+select * from teacher
